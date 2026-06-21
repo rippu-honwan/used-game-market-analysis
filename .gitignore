@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# NOTE: data/mercari.sqlite and data/raw_pages/ are intentionally NOT ignored.
+# This is a research repo; the database and raw HTML are part of the dataset.

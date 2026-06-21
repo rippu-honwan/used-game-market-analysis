@@ -1,0 +1,176 @@
+# Game targets for the Mercari second-hand market analysis.
+#
+# Each top-level key is one game+platform target ("game_id").
+# Add new games by copying an entry and editing the fields.
+# The scraper and DB are keyed on game_id, so keep them unique.
+
+pragmata_ps5:
+  game_id: pragmata_ps5
+  canonical_title: PRAGMATA
+  platform: PS5
+  release_date: "2026-04-24"
+  publisher: CAPCOM
+  edition_scope: standard_only
+  search_keywords:
+    - プラグマタ
+    - PRAGMATA
+    - プラグマタ PS5
+  exclude_keywords:
+    # Limited / collector / deluxe editions
+    - 限定版
+    - 限定
+    - コレクターズ
+    - コレクターズエディション
+    - デラックス
+    - デラックスエディション
+    - 特装版
+    - 豪華版
+    # Bundles / sets / pre-order bonuses
+    - 同梱
+    - 同梱版
+    - セット
+    - まとめ
+    - 予約特典
+    # Download / code, not a physical disc/card
+    - ダウンロード版
+    - DL版
+    - コード
+
+pragmata_switch2:
+  game_id: pragmata_switch2
+  canonical_title: PRAGMATA
+  platform: Nintendo Switch 2
+  release_date: "2026-04-24"
+  publisher: CAPCOM
+  edition_scope: standard_only
+  search_keywords:
+    - プラグマタ
+    - PRAGMATA
+    - プラグマタ Switch2
+    - プラグマタ スイッチ2
+  exclude_keywords:
+    # Limited / collector / deluxe editions
+    - 限定版
+    - 限定
+    - コレクターズ
+    - コレクターズエディション
+    - デラックス
+    - デラックスエディション
+    - 特装版
+    - 豪華版
+    # Bundles / sets / pre-order bonuses
+    - 同梱
+    - 同梱版
+    - セット
+    - まとめ
+    - 予約特典
+    # Download / code, not a physical card
+    - ダウンロード版
+    - DL版
+    - コード
+
+ff7r_intergrade_ps5:
+  game_id: ff7r_intergrade_ps5
+  canonical_title: FINAL FANTASY VII REMAKE INTERGRADE
+  platform: PS5
+  release_date: "2021-06-10"
+  publisher: SQUARE ENIX
+  edition_scope: standard_only
+  # Every keyword is anchored on "INTERGRADE / インターグレード". This is the main
+  # config lever against FF7 contamination: Mercari then returns Intergrade
+  # listings and naturally omits REMAKE(base) / REBIRTH / CRISIS CORE / REUNION.
+  search_keywords:
+    - FF7 リメイク インターグレード
+    - FF7R インターグレード
+    - ファイナルファンタジーVII リメイク インターグレード
+    - FINAL FANTASY VII REMAKE INTERGRADE
+    - インターグレード PS5
+  exclude_keywords:
+    # Limited / collector / deluxe editions
+    - 限定版
+    - 限定
+    - コレクターズ
+    - コレクターズエディション
+    - デラックス
+    - デラックスエディション
+    - 特装版
+    - 豪華版
+    # Bundles / sets / pre-order bonuses
+    - 同梱
+    - 同梱版
+    - セット
+    - まとめ
+    - 予約特典
+    # Download / code, not a physical disc
+    - ダウンロード版
+    - DL版
+    - コード
+    # Related FF7 titles that contaminate the keyword space (different games)
+    - リバース
+    - REBIRTH
+    - リユニオン
+    - REUNION
+    - クライシスコア
+    - クライシス コア
+    - CRISIS CORE
+    # Non-game media / partial listings
+    - 攻略本
+    - ガイドブック
+    - 設定資料集
+    - サントラ
+    - サウンドトラック
+    - 特典のみ
+    - コードのみ
+
+ff7r_intergrade_switch2:
+  game_id: ff7r_intergrade_switch2
+  canonical_title: FINAL FANTASY VII REMAKE INTERGRADE
+  platform: Nintendo Switch 2
+  # release_date intentionally omitted: no confirmed Switch 2 release date.
+  # The pipeline treats a missing release_date as NULL (days_since_release = NULL).
+  release_date: null
+  publisher: SQUARE ENIX
+  edition_scope: standard_only
+  # See PS5 entry: keywords anchored on INTERGRADE to avoid REBIRTH / REUNION / etc.
+  search_keywords:
+    - FF7 リメイク インターグレード
+    - FF7R インターグレード
+    - ファイナルファンタジーVII リメイク インターグレード
+    - FINAL FANTASY VII REMAKE INTERGRADE
+    - インターグレード Switch2
+  exclude_keywords:
+    # Limited / collector / deluxe editions
+    - 限定版
+    - 限定
+    - コレクターズ
+    - コレクターズエディション
+    - デラックス
+    - デラックスエディション
+    - 特装版
+    - 豪華版
+    # Bundles / sets / pre-order bonuses
+    - 同梱
+    - 同梱版
+    - セット
+    - まとめ
+    - 予約特典
+    # Download / code, not a physical card
+    - ダウンロード版
+    - DL版
+    - コード
+    # Related FF7 titles that contaminate the keyword space (different games)
+    - リバース
+    - REBIRTH
+    - リユニオン
+    - REUNION
+    - クライシスコア
+    - クライシス コア
+    - CRISIS CORE
+    # Non-game media / partial listings
+    - 攻略本
+    - ガイドブック
+    - 設定資料集
+    - サントラ
+    - サウンドトラック
+    - 特典のみ
+    - コードのみ

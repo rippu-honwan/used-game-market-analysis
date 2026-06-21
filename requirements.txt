@@ -1,0 +1,6 @@
+pyyaml
+pandas
+requests
+ecdsa
+matplotlib
+seaborn
