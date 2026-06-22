@@ -125,13 +125,23 @@ def classify(title: str | None, game_cfg: dict) -> dict:
     platform_guess = guess_platform(t)
     expected = game_cfg["expected_platform"]
 
+    # Per-game exclude_keywords from configs/games.yaml (case-insensitive
+    # substring match). This is the config-driven lever for sibling/related-title
+    # contamination -- e.g. FF7 REBIRTH / REUNION / CRISIS CORE for the
+    # INTERGRADE targets -- which the hardcoded CATEGORY_KEYWORDS don't cover.
+    game_excludes = [k.lower() for k in (game_cfg.get("exclude_keywords") or [])]
+    matches_game_exclude = relevant and _match(t, game_excludes)
+
     is_bundle = 1 if _match(t, CATEGORY_KEYWORDS["bundle"]) else 0
     nonstandard = next((c for c in NONSTANDARD_PRIORITY if _match(t, CATEGORY_KEYWORDS[c])), None)
     is_standard_edition = 0 if nonstandard else 1
 
-    # exclude_reason priority: unrelated > wrong platform > non-standard edition.
+    # exclude_reason priority:
+    #   unmatched_title > game_specific_exclude > wrong_platform > non-standard edition.
     if not relevant:
         exclude_reason = "unmatched_title"
+    elif matches_game_exclude:
+        exclude_reason = "game_specific_exclude"
     elif expected and platform_guess in ("PS5", "Switch 2") and platform_guess != expected:
         exclude_reason = "wrong_platform"
     elif nonstandard:
@@ -607,6 +617,44 @@ def _self_test() -> None:
     # pre-order bonus must NOT exclude a standard copy
     bonus = classify("【早期購入特典付き】PRAGMATA プラグマタ PS5", cfg)
     assert bonus["is_excluded"] == 0 and bonus["needs_detail_scrape"] == 1
+
+    # --- per-game exclude_keywords (config-driven, e.g. FF7 sibling titles) ---
+    ff = {
+        "canonical_title": "FINAL FANTASY VII REMAKE INTERGRADE",
+        "platform": "PS5",
+        "search_keywords": ["FF7 リメイク インターグレード",
+                            "FINAL FANTASY VII REMAKE INTERGRADE", "インターグレード PS5"],
+        "exclude_keywords": ["リバース", "REBIRTH", "リユニオン", "REUNION",
+                             "クライシスコア", "CRISIS CORE", "攻略本", "コードのみ"],
+    }
+    ff["relevance_tokens"] = relevance_tokens(ff)
+    ff["expected_platform"] = expected_platform(ff["platform"])
+
+    keep = classify("FINAL FANTASY VII REMAKE INTERGRADE PS5", ff)
+    assert keep["is_excluded"] == 0 and keep["needs_detail_scrape"] == 1
+    reb = classify("FF7 リバース PS5", ff)  # sibling title (REBIRTH)
+    assert reb["exclude_reason"] == "game_specific_exclude" and reb["needs_detail_scrape"] == 0
+    cc = classify("CRISIS CORE FINAL FANTASY VII REUNION PS5", ff)
+    assert cc["exclude_reason"] == "game_specific_exclude" and cc["is_excluded"] == 1
+    gb = classify("FF7 インターグレード 攻略本", ff)
+    assert gb["exclude_reason"] == "game_specific_exclude"
+    co = classify("FF7 インターグレード コードのみ", ff)
+    assert co["exclude_reason"] == "game_specific_exclude"
+
+    # PRAGMATA carve-out preserved: bare コード / 予約特典 are intentionally NOT in
+    # the YAML, so a standard copy advertising an unused bonus code is still kept.
+    prag = {
+        "canonical_title": "PRAGMATA", "platform": "PS5",
+        "search_keywords": ["プラグマタ", "PRAGMATA"],
+        "exclude_keywords": ["限定版", "限定", "コレクターズ", "デラックス",
+                             "同梱", "セット", "まとめ", "ダウンロード版", "DL版"],
+    }
+    prag["relevance_tokens"] = relevance_tokens(prag)
+    prag["expected_platform"] = expected_platform(prag["platform"])
+    code_bonus = classify("PRAGMATA プラグマタ PS5 特典コード未使用", prag)
+    assert code_bonus["is_excluded"] == 0 and code_bonus["needs_detail_scrape"] == 1
+    prag_lim = classify("プラグマタ PS5 限定版", prag)  # still excluded, now config-driven
+    assert prag_lim["exclude_reason"] == "game_specific_exclude" and prag_lim["is_excluded"] == 1
 
     # --- clean-phase helpers ---
     assert to_price_jpy("4990") == 4990.0
