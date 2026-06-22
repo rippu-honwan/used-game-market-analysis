@@ -136,6 +136,201 @@ ff7r_intergrade_ps5:
     - 特典のみ
     - コードのみ
 
+dq7r_reimagined_ps5:
+  game_id: dq7r_reimagined_ps5
+  canonical_title: DRAGON QUEST VII Reimagined
+  platform: PS5
+  # release_date intentionally null: no confirmed/verified DQ7R release date at
+  # config time. Pipeline treats NULL as days_since_release = NULL (see ff7r switch2).
+  release_date: null
+  publisher: SQUARE ENIX
+  edition_scope: standard_only
+  # Keywords anchored on "VII / 7" so unrelated DQ numbers (III, XI, ...) fall out
+  # via the relevance gate. リメイク and リメインジンド (Reimagined) both included
+  # since the localized title token is uncertain.
+  search_keywords:
+    - ドラゴンクエストVII リメイク
+    - ドラゴンクエスト7 リメイク PS5
+    - ドラクエ7 リメイク
+    - DRAGON QUEST VII Reimagined
+    - ドラゴンクエストVII リメインジンド
+  exclude_keywords:
+    # Limited / collector / deluxe editions
+    - 限定版
+    - 限定
+    - コレクターズ
+    - コレクターズエディション
+    - デラックス
+    - デラックスエディション
+    - 特装版
+    - 豪華版
+    # Bundles / sets
+    - 同梱
+    - 同梱版
+    - セット
+    - まとめ
+    # Download / code, not a physical disc
+    - ダウンロード版
+    - DL版
+    # Sibling Dragon Quest titles / spin-offs that share the "ドラゴンクエスト" space
+    - ビルダーズ
+    - モンスターズ
+    - ヒーローズ
+    - トレジャーズ
+    - タクト
+    - ウォーク
+    # Non-game media / partial listings
+    - 攻略本
+    - ガイドブック
+    - 設定資料集
+    - サントラ
+    - サウンドトラック
+    # Non-game merchandise sharing the title (goods, not the disc/card)
+    - フィギュア
+    - アクリル
+    - クリアファイル
+    - ポストカード
+    - マグネットシート
+    - コースター
+    - 缶バッジ
+    - スチールブック
+    - ネックレス
+    - ディスプレイ台
+    - ぬいぐるみ
+    - タンブラー
+    - カードケース
+    - キーホルダー
+    - 特典のみ
+    - コードのみ
+
+dq7r_reimagined_switch:
+  game_id: dq7r_reimagined_switch
+  canonical_title: DRAGON QUEST VII Reimagined
+  # NOTE: bare "Switch" (Switch 1). The current classifier has no Switch-1 marker
+  # set, so expected_platform() returns None for this label -> NO platform guard
+  # at the candidate stage (PS5/Switch/Switch2 all collected). Leakage documented
+  # in quality checks; classifier intentionally left unchanged per task constraints.
+  platform: Nintendo Switch
+  release_date: null
+  publisher: SQUARE ENIX
+  edition_scope: standard_only
+  search_keywords:
+    - ドラゴンクエストVII リメイク
+    - ドラゴンクエスト7 リメイク Switch
+    - ドラクエ7 リメイク スイッチ
+    - DRAGON QUEST VII Reimagined
+    - ドラゴンクエストVII リメインジンド
+  exclude_keywords:
+    # Limited / collector / deluxe editions
+    - 限定版
+    - 限定
+    - コレクターズ
+    - コレクターズエディション
+    - デラックス
+    - デラックスエディション
+    - 特装版
+    - 豪華版
+    # Bundles / sets
+    - 同梱
+    - 同梱版
+    - セット
+    - まとめ
+    # Download / code, not a physical card
+    - ダウンロード版
+    - DL版
+    # Sibling Dragon Quest titles / spin-offs
+    - ビルダーズ
+    - モンスターズ
+    - ヒーローズ
+    - トレジャーズ
+    - タクト
+    - ウォーク
+    # Non-game media / partial listings
+    - 攻略本
+    - ガイドブック
+    - 設定資料集
+    - サントラ
+    - サウンドトラック
+    # Non-game merchandise sharing the title
+    - フィギュア
+    - アクリル
+    - クリアファイル
+    - ポストカード
+    - マグネットシート
+    - コースター
+    - 缶バッジ
+    - スチールブック
+    - ネックレス
+    - ディスプレイ台
+    - ぬいぐるみ
+    - タンブラー
+    - カードケース
+    - キーホルダー
+    - 特典のみ
+    - コードのみ
+
+dq7r_reimagined_switch2:
+  game_id: dq7r_reimagined_switch2
+  canonical_title: DRAGON QUEST VII Reimagined
+  platform: Nintendo Switch 2
+  release_date: null
+  publisher: SQUARE ENIX
+  edition_scope: standard_only
+  search_keywords:
+    - ドラゴンクエストVII リメイク
+    - ドラゴンクエスト7 リメイク Switch2
+    - ドラクエ7 リメイク スイッチ2
+    - DRAGON QUEST VII Reimagined
+    - ドラゴンクエストVII リメインジンド
+  exclude_keywords:
+    # Limited / collector / deluxe editions
+    - 限定版
+    - 限定
+    - コレクターズ
+    - コレクターズエディション
+    - デラックス
+    - デラックスエディション
+    - 特装版
+    - 豪華版
+    # Bundles / sets
+    - 同梱
+    - 同梱版
+    - セット
+    - まとめ
+    # Download / code, not a physical card
+    - ダウンロード版
+    - DL版
+    # Sibling Dragon Quest titles / spin-offs
+    - ビルダーズ
+    - モンスターズ
+    - ヒーローズ
+    - トレジャーズ
+    - タクト
+    - ウォーク
+    # Non-game media / partial listings
+    - 攻略本
+    - ガイドブック
+    - 設定資料集
+    - サントラ
+    - サウンドトラック
+    # Non-game merchandise sharing the title
+    - フィギュア
+    - アクリル
+    - クリアファイル
+    - ポストカード
+    - マグネットシート
+    - コースター
+    - 缶バッジ
+    - スチールブック
+    - ネックレス
+    - ディスプレイ台
+    - ぬいぐるみ
+    - タンブラー
+    - カードケース
+    - キーホルダー
+    - 特典のみ
+    - コードのみ
+
 ff7r_intergrade_switch2:
   game_id: ff7r_intergrade_switch2
   canonical_title: FINAL FANTASY VII REMAKE INTERGRADE
